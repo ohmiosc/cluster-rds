@@ -1,0 +1,40 @@
+image: undcomercio/terraform:0.12.26
+
+pipelines:
+  custom:
+    development-plan:
+      - step:
+          name: Planificar despliegue a desarrollo
+          script:
+            - source ./scripts/environment.sh dev
+            - make terraform-plan
+    development-apply:
+      - step:
+          name: Desplegar a desarrollo
+          script:
+            - source ./scripts/environment.sh dev
+            - make terraform-apply
+    staging-plan:
+      - step:
+          name: Planificar despliegue a Staging
+          script:
+            - source ./scripts/environment.sh pre
+            - make terraform-plan
+    staging-apply:
+      - step:
+          name: Desplegar a Staging
+          script:
+            - source ./scripts/environment.sh pre
+            - make terraform-apply
+    prod-plan:
+      - step:
+          name: Planificar despliegue a Produccion
+          script:
+            - source ./scripts/environment.sh prod
+            - make terraform-plan
+    prod-apply:
+      - step:
+          name: Desplegar a Produccion
+          script:
+            - source ./scripts/environment.sh prod
+            - make terraform-apply
